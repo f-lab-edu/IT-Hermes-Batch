@@ -23,6 +23,7 @@ public class Scheduler {
     public void scheduleFixedRateTask() {
         log.info("10초에 한번 씩, 실행 -  {}", LocalDateTime.now());
         // 추후 서비스에 있는 Node, UserCustom, Alarm 메소드 호출!
+        // title null -> lasttitle를 넣고 update나 혹은 insert(처음)
         List<CrawlingCommonRequestDto> crawlingData = nodeRequestService.findCrawlingData();
         hermesRequestService.insertYoutubeAndNewsData(crawlingData);
     }
