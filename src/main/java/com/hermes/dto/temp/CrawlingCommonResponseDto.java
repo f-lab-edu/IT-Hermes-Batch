@@ -1,4 +1,4 @@
-package com.hermes.dto;
+package com.hermes.dto.temp;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
