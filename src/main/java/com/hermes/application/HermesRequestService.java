@@ -6,8 +6,6 @@ import com.hermes.domain.util.ContentsProviderType;
 import com.hermes.domain.util.GradeType;
 import com.hermes.domain.util.JobType;
 import com.hermes.presentation.dto.feignclient.*;
-import com.hermes.presentation.dto.webclient.feignclient.*;
-import com.hermes.presentation.feignclient.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
