@@ -16,9 +16,7 @@ public interface HermesClient {
     @RequestMapping(method = RequestMethod.POST, value = "/job/")
     ResponseEntity<CrawlingCommonResponseDto> insertJob(@RequestBody JobInsertRequestDto jobInsertRequestDto);
 
-    @RequestMapping(method = RequestMethod.POST, value = "/youtube-and-news/last-url")
-    ResponseEntity<YoutubeAndNewsLastUrlResponseDto> findYoutubeAndNewsLastUrl(@RequestBody YoutubeAndNewsLastUrlRequestDto youtubeAndNewsLastUrlRequestDto);
+    @RequestMapping(method = RequestMethod.GET, value = "/crawling-contents-last-title/")
+    ResponseEntity<CrawlingContentsLastUrlFindAllResponseDto> findAllCrawlingContentsLastTitle();
 
-    @RequestMapping(method = RequestMethod.POST, value = "/job/last-url")
-    ResponseEntity<JobLastUrlResponseDto> findJobLastUrl(@RequestBody JobLastUrlRequestDto jobLastUrlRequestDto);
 }

@@ -1,9 +1,6 @@
 package com.hermes.schedule;
 
-import com.hermes.dto.JobCrawlingDto;
-import com.hermes.dto.JobLastUrlResponseDto;
-import com.hermes.dto.YoutubeAndNewsCrawlingDto;
-import com.hermes.dto.YoutubeAndNewsLastUrlResponseDto;
+import com.hermes.dto.*;
 import com.hermes.service.HermesRequestService;
 import com.hermes.service.NodeRequestService;
 import com.hermes.util.CategoryType;
@@ -12,7 +9,6 @@ import com.hermes.util.GradeType;
 import com.hermes.util.JobType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -30,40 +26,21 @@ public class Scheduler {
     @Scheduled(fixedDelay = 10000)
     public void scheduleFixedRateTask() {
         log.info("10초에 한번 씩, 실행 -  {}", LocalDateTime.now());
+
         List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList;
         List<JobCrawlingDto> jobCrawlingDtoList;
-        String lastUrl;
-        ResponseEntity<YoutubeAndNewsLastUrlResponseDto> youtubeAndNewsLastUrl;
 
-        youtubeAndNewsLastUrl = hermesRequestService.findYoutubeAndNewsLastUrl(ContentsProviderType.YOZM);
-        lastUrl = youtubeAndNewsLastUrl.getBody().getLastUrl();
+        List<CrawlingContentsLastUrlDto> lastTitleList = hermesRequestService.findAllCrawlingContentsLastTitle().getBody().getCrawlingContentsLastUrlDtoList();
 
-        if (lastUrl == null)
-            youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingNews(ContentsProviderType.YOZM, "noData");
-        else youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingNews(ContentsProviderType.YOZM, lastUrl);
+        youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingNews(ContentsProviderType.YOZM, lastTitleList);
         hermesRequestService.insertYoutubeAndNews(CategoryType.NEWS, ContentsProviderType.YOZM, youtubeAndNewsCrawlingDtoList);
 
-        youtubeAndNewsLastUrl = hermesRequestService.findYoutubeAndNewsLastUrl(ContentsProviderType.DREAM_CODING);
-        lastUrl = youtubeAndNewsLastUrl.getBody().getLastUrl();
-
-        if (lastUrl == null)
-            youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingYoutube(ContentsProviderType.DREAM_CODING, "noData");
-        else
-            youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingYoutube(ContentsProviderType.DREAM_CODING, lastUrl);
-
+        youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingYoutube(ContentsProviderType.DREAM_CODING, lastTitleList);
         hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.DREAM_CODING, youtubeAndNewsCrawlingDtoList);
 
+        jobCrawlingDtoList = nodeRequestService.crawlingJob(ContentsProviderType.SARAMIN,
+                JobType.BACKEND, GradeType.JUNIOR.getMinExperience(), GradeType.JUNIOR.getMaxExperience(), lastTitleList);
 
-        ResponseEntity<JobLastUrlResponseDto> jobLastUrl = hermesRequestService.findJobLastUrl(ContentsProviderType.SARAMIN);
-        lastUrl = jobLastUrl.getBody().getLastUrl();
-
-        if (lastUrl == null) {
-            jobCrawlingDtoList = nodeRequestService.crawlingJob(ContentsProviderType.SARAMIN,
-                    JobType.BACKEND, GradeType.JUNIOR.getMinExperience(), GradeType.JUNIOR.getMaxExperience(), "noData");
-        } else {
-            jobCrawlingDtoList = nodeRequestService.crawlingJob(ContentsProviderType.SARAMIN,
-                    JobType.BACKEND, GradeType.JUNIOR.getMinExperience(), GradeType.JUNIOR.getMaxExperience(), lastUrl);
-        }
         hermesRequestService.insertJob(GradeType.JUNIOR, ContentsProviderType.SARAMIN, jobCrawlingDtoList);
     }
 }
