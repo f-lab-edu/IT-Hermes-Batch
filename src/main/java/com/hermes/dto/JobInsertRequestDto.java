@@ -1,8 +1,8 @@
 package com.hermes.dto;
 
-import com.hermes.util.CategoryType;
 import com.hermes.util.ContentsProviderType;
 import com.hermes.util.GradeType;
+import com.hermes.util.JobType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,5 +17,6 @@ import java.util.List;
 public class JobInsertRequestDto {
     GradeType grade;
     ContentsProviderType contentsProvider;
+    JobType job;
     List<JobCrawlingDto> jobCrawlingDtoList;
 }

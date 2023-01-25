@@ -1,6 +1,8 @@
 package com.hermes.dto;
 
 import com.hermes.util.ContentsProviderType;
+import com.hermes.util.GradeType;
+import com.hermes.util.JobType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,4 +13,6 @@ import lombok.NoArgsConstructor;
 public class CrawlingContentsLastUrlDto {
     ContentsProviderType contentsProvider;
     String lastUrl;
+    JobType job;
+    GradeType grade;
 }

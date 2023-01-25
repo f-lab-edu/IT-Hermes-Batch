@@ -1,5 +1,6 @@
 package com.hermes.util;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 @Getter
@@ -17,5 +18,10 @@ public enum GradeType {
         this.name = name;
         this.minExperience = minExperience;
         this.maxExperience = maxExperience;
+    }
+
+    @JsonCreator
+    public static JobType fromValue(String grade) {
+        return JobType.valueOf(grade.toUpperCase());
     }
 }

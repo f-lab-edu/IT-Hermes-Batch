@@ -14,5 +14,11 @@ public enum JobType {
     JobType(String title) {
         this.title = title;
     }
+
+
+    @JsonCreator
+    public static JobType fromValue(String job) {
+        return JobType.valueOf(job.toUpperCase());
+    }
 }
 
