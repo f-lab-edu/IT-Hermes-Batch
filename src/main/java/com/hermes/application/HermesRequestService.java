@@ -40,17 +40,17 @@ public class HermesRequestService {
         return hermesClient.insertJob(jobInsertRequestDto);
     }
 
-    public void finaAndInsertYoutubeCrawling(List<CrawlingContentsLastUrlDto> lastTitleList, ContentsProviderType contentsProviderType) {
+    public void finaAndInsertYoutubeCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingYoutube(contentsProviderType, lastTitleList);
         insertYoutubeAndNews(CategoryType.YOUTUBE, contentsProviderType, youtubeAndNewsCrawlingDtoList);
     }
 
-    public void finaAndInsertNewsCrawling(List<CrawlingContentsLastUrlDto> lastTitleList, ContentsProviderType contentsProviderType) {
+    public void finaAndInsertNewsCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingNews(contentsProviderType, lastTitleList);
         insertYoutubeAndNews(CategoryType.NEWS, contentsProviderType, youtubeAndNewsCrawlingDtoList);
     }
 
-    public void findAndInsertJobCrawling(List<CrawlingContentsLastUrlDto> lastTitleList, ContentsProviderType contentsProviderType) {
+    public void findAndInsertJobCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         List<JobCrawlingDto> jobCrawlingDtoList;
 
         jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,

@@ -1,6 +1,6 @@
 package com.hermes.application;
 
-import com.hermes.presentation.dto.feignclient.CrawlingContentsLastUrlDto;
+import com.hermes.presentation.dto.feignclient.CrawlingContentsLastUrl;
 import com.hermes.presentation.dto.feignclient.JobCrawlingDto;
 import com.hermes.presentation.dto.feignclient.YoutubeAndNewsCrawlingDto;
 import com.hermes.presentation.client.CrawlingClient;
@@ -17,23 +17,23 @@ import java.util.List;
 public class NodeRequestService {
     private final CrawlingClient crawlingClient;
 
-    public List<YoutubeAndNewsCrawlingDto> crawlingNews(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrlDto> lastTitleList) {
+    public List<YoutubeAndNewsCrawlingDto> crawlingNews(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList) {
         String crawlingContentsLastUrl = findCrawlingContentsYoutubeAndNewsLastUrl(contentsProviderType, lastTitleList);
         return crawlingClient.crawlingNews(contentsProviderType.getRequestPath(), crawlingContentsLastUrl);
     }
 
-    public List<YoutubeAndNewsCrawlingDto> crawlingYoutube(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrlDto> lastTitleList) {
+    public List<YoutubeAndNewsCrawlingDto> crawlingYoutube(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList) {
         String crawlingContentsLastUrl = findCrawlingContentsYoutubeAndNewsLastUrl(contentsProviderType, lastTitleList);
         return crawlingClient.crawlingYoutube(contentsProviderType.getRequestPath(), contentsProviderType.getTitle(), crawlingContentsLastUrl);
     }
 
     public List<JobCrawlingDto> crawlingJob(ContentsProviderType contentsProviderType, JobType jobType
-            , GradeType gradeType, List<CrawlingContentsLastUrlDto> lastTitleList) {
+            , GradeType gradeType, List<CrawlingContentsLastUrl> lastTitleList) {
         String crawlingContentsLastUrl = findCrawlingContentsJobLastUrl(contentsProviderType, lastTitleList, jobType, gradeType);
         return crawlingClient.crawlingJob(contentsProviderType.getRequestPath(), jobType.getTitle(), gradeType.getMinExperience(), gradeType.getMaxExperience(), crawlingContentsLastUrl);
     }
 
-    String findCrawlingContentsYoutubeAndNewsLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrlDto> lastTitleList) {
+    String findCrawlingContentsYoutubeAndNewsLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList) {
         if (lastTitleList == null) return "noData";
         return lastTitleList.stream()
                 .filter(v -> v.getContentsProvider().equals(contentsProviderType))
@@ -42,7 +42,7 @@ public class NodeRequestService {
                 .orElse("noData");
     }
 
-    String findCrawlingContentsJobLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrlDto> lastTitleList, JobType jobType, GradeType gradeType) {
+    String findCrawlingContentsJobLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList, JobType jobType, GradeType gradeType) {
         if (lastTitleList == null) return "noData";
         return lastTitleList.stream()
                 .filter(v -> v.getContentsProvider().equals(contentsProviderType))

@@ -10,5 +10,5 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class CrawlingContentsLastUrlFindAllResponseDto {
-    List<CrawlingContentsLastUrlDto> crawlingContentsLastUrlDtoList;
+    List<CrawlingContentsLastUrl> crawlingContentsLastUrlDtoList;
 }
