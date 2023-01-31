@@ -33,7 +33,7 @@ public class NodeRequestService {
         return crawlingClient.crawlingJob(contentsProviderType.getRequestPath(), jobType.getTitle(), gradeType.getMinExperience(), gradeType.getMaxExperience(), crawlingContentsLastUrl);
     }
 
-    String findCrawlingContentsYoutubeAndNewsLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList) {
+    private String findCrawlingContentsYoutubeAndNewsLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList) {
         if (lastTitleList == null) return "noData";
         return lastTitleList.stream()
                 .filter(v -> v.getContentsProvider().equals(contentsProviderType))
@@ -42,7 +42,7 @@ public class NodeRequestService {
                 .orElse("noData");
     }
 
-    String findCrawlingContentsJobLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList, JobType jobType, GradeType gradeType) {
+    private String findCrawlingContentsJobLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList, JobType jobType, GradeType gradeType) {
         if (lastTitleList == null) return "noData";
         return lastTitleList.stream()
                 .filter(v -> v.getContentsProvider().equals(contentsProviderType))
