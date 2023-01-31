@@ -1,4 +1,4 @@
-package com.hermes.service;
+package com.hermes.application;
 
 import org.springframework.stereotype.Service;
 
