@@ -24,7 +24,10 @@ public class Scheduler {
         List<CrawlingContentsLastUrl> lastTitleList = hermesRequestService.findAllCrawlingContentsLastTitle().getBody().getCrawlingContentsLastUrlDtoList();
 
         hermesRequestService.finaAndInsertNewsCrawling(lastTitleList, ContentsProviderType.YOZM);
+        hermesRequestService.finaAndInsertNewsCrawling(lastTitleList,ContentsProviderType.NAVER);
+        //hermesRequestService.finaAndInsertNewsCrawling(lastTitleList,ContentsProviderType.CODING_WORLD);
         hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.DREAM_CODING);
         hermesRequestService.findAndInsertJobCrawling(lastTitleList, ContentsProviderType.SARAMIN);
+        //hermesRequestService.findAndInsertJobCrawling(lastTitleList,ContentsProviderType.WANTED);
     }
 }
