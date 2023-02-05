@@ -21,4 +21,10 @@ public interface HermesClient {
     @RequestMapping(method = RequestMethod.GET, value = "/crawling-contents-last-title/")
     ResponseEntity<CrawlingContentsLastUrlFindAllResponseDto> findAllCrawlingContentsLastTitle();
 
+    @RequestMapping(method = RequestMethod.GET, value = "/alarm/subscription")
+    ResponseEntity<CrawlingCommonResponseDto> alarmSubscribeContents();
+
+    @RequestMapping(method = RequestMethod.GET, value = "/alarm/recommend")
+    ResponseEntity<CrawlingCommonResponseDto> alarmRecommendContents();
+
 }
