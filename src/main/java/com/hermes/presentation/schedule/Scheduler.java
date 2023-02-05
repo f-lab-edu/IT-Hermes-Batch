@@ -2,6 +2,7 @@ package com.hermes.presentation.schedule;
 
 import com.hermes.application.AlarmRequestService;
 import com.hermes.presentation.dto.feignclient.CrawlingContentsLastUrlDto;
+import com.hermes.presentation.dto.feignclient.CrawlingContentsLastUrl;
 import com.hermes.application.HermesRequestService;
 import com.hermes.domain.util.ContentsProviderType;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class Scheduler {
     public void scheduleFixedRateTask() {
         log.info("10초에 한번 씩, 실행 -  {}", LocalDateTime.now());
 
-        List<CrawlingContentsLastUrlDto> lastTitleList = hermesRequestService.findAllCrawlingContentsLastTitle().getBody().getCrawlingContentsLastUrlDtoList();
+        List<CrawlingContentsLastUrl> lastTitleList = hermesRequestService.findAllCrawlingContentsLastTitle().getBody().getCrawlingContentsLastUrlDtoList();
 
         hermesRequestService.finaAndInsertNewsCrawling(lastTitleList, ContentsProviderType.YOZM);
         hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.DREAM_CODING);

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class HermesRequestService {
     private final NodeRequestService nodeRequestService;
 
     public ResponseEntity<CrawlingCommonResponseDto> insertYoutubeAndNews(CategoryType categoryType, ContentsProviderType contentsProviderType, List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList) {
-        if(youtubeAndNewsCrawlingDtoList.isEmpty()) return null;
+        if (youtubeAndNewsCrawlingDtoList.isEmpty()) return null;
         YoutubeAndNewsInsertRequestDto youtubeAndNewsInsertRequestDto = YoutubeAndNewsInsertRequestDto.builder()
                 .category(categoryType)
                 .contentsProvider(contentsProviderType)
@@ -29,8 +30,8 @@ public class HermesRequestService {
     }
 
     public ResponseEntity<CrawlingCommonResponseDto> insertJob(GradeType gradeType, ContentsProviderType contentsProviderType
-            ,JobType job, List<JobCrawlingDto> jobCrawlingDtoList) {
-        if(jobCrawlingDtoList.isEmpty()) return null;
+            , JobType job, List<JobCrawlingDto> jobCrawlingDtoList) {
+        if (jobCrawlingDtoList.isEmpty()) return null;
         JobInsertRequestDto jobInsertRequestDto = JobInsertRequestDto.builder()
                 .grade(gradeType)
                 .contentsProvider(contentsProviderType)
@@ -40,66 +41,24 @@ public class HermesRequestService {
         return hermesClient.insertJob(jobInsertRequestDto);
     }
 
-    public void finaAndInsertYoutubeCrawling(List<CrawlingContentsLastUrlDto> lastTitleList, ContentsProviderType contentsProviderType) {
+    public void finaAndInsertYoutubeCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingYoutube(contentsProviderType, lastTitleList);
         insertYoutubeAndNews(CategoryType.YOUTUBE, contentsProviderType, youtubeAndNewsCrawlingDtoList);
     }
 
-    public void finaAndInsertNewsCrawling(List<CrawlingContentsLastUrlDto> lastTitleList, ContentsProviderType contentsProviderType) {
+    public void finaAndInsertNewsCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingNews(contentsProviderType, lastTitleList);
         insertYoutubeAndNews(CategoryType.NEWS, contentsProviderType, youtubeAndNewsCrawlingDtoList);
     }
 
-    public void findAndInsertJobCrawling(List<CrawlingContentsLastUrlDto> lastTitleList, ContentsProviderType contentsProviderType) {
-        List<JobCrawlingDto> jobCrawlingDtoList;
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.BACKEND, GradeType.BEGINNER, lastTitleList);
-        insertJob(GradeType.BEGINNER, contentsProviderType, JobType.BACKEND, jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.BACKEND, GradeType.JUNIOR, lastTitleList);
-        insertJob(GradeType.JUNIOR, contentsProviderType, JobType.BACKEND,  jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.BACKEND, GradeType.INTERMEDIATE, lastTitleList);
-        insertJob(GradeType.INTERMEDIATE, contentsProviderType, JobType.BACKEND,  jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.BACKEND, GradeType.SENIOR, lastTitleList);
-        insertJob(GradeType.SENIOR, contentsProviderType, JobType.BACKEND,  jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.FRONT, GradeType.BEGINNER, lastTitleList);
-        insertJob(GradeType.BEGINNER, contentsProviderType, JobType.FRONT, jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.FRONT, GradeType.JUNIOR, lastTitleList);
-        insertJob(GradeType.JUNIOR, contentsProviderType, JobType.FRONT,  jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.FRONT, GradeType.INTERMEDIATE, lastTitleList);
-        insertJob(GradeType.INTERMEDIATE, contentsProviderType, JobType.FRONT,  jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.FRONT, GradeType.SENIOR, lastTitleList);
-        insertJob(GradeType.SENIOR, contentsProviderType, JobType.FRONT,  jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.MOBILE, GradeType.BEGINNER, lastTitleList);
-        insertJob(GradeType.BEGINNER, contentsProviderType, JobType.MOBILE, jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.MOBILE, GradeType.JUNIOR, lastTitleList);
-        insertJob(GradeType.JUNIOR, contentsProviderType, JobType.MOBILE,  jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.MOBILE, GradeType.INTERMEDIATE, lastTitleList);
-        insertJob(GradeType.INTERMEDIATE, contentsProviderType, JobType.MOBILE,  jobCrawlingDtoList);
-
-        jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
-                JobType.MOBILE, GradeType.SENIOR, lastTitleList);
-        insertJob(GradeType.SENIOR, contentsProviderType, JobType.MOBILE,  jobCrawlingDtoList);
+    public void findAndInsertJobCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
+        Arrays.stream(JobType.values()).toList().stream().forEach(job -> {
+            Arrays.stream(GradeType.values()).toList().stream().forEach(grade -> {
+                List<JobCrawlingDto> jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
+                        job, grade, lastTitleList);
+                insertJob(grade, contentsProviderType, job, jobCrawlingDtoList);
+            });
+        });
     }
 
     public ResponseEntity<CrawlingContentsLastUrlFindAllResponseDto> findAllCrawlingContentsLastTitle() {
