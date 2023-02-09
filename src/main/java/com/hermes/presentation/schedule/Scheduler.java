@@ -1,7 +1,6 @@
 package com.hermes.presentation.schedule;
 
 import com.hermes.application.AlarmRequestService;
-import com.hermes.presentation.dto.feignclient.CrawlingContentsLastUrlDto;
 import com.hermes.presentation.dto.feignclient.CrawlingContentsLastUrl;
 import com.hermes.application.HermesRequestService;
 import com.hermes.domain.util.ContentsProviderType;
