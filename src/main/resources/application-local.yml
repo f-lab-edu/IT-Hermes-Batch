@@ -1,0 +1,7 @@
+server:
+  port: 4000
+
+springboot:
+  ip:
+    crawling: localhost:3000
+    server: localhost:8080

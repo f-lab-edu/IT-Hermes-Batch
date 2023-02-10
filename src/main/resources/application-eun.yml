@@ -1,0 +1,7 @@
+server:
+  port: 4000
+
+springboot:
+  ip:
+    crawling: 10.41.226.60:3000
+    server: 10.41.134.22:8080
