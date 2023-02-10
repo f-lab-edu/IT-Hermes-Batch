@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "crawling", url = "localhost:3000")
+@FeignClient(name = "crawling", url = "10.41.226.60:3000")
 public interface CrawlingClient {
     @RequestMapping(method = RequestMethod.GET, value = "/news/{contentsProvider}")
     List<YoutubeAndNewsCrawlingDto> crawlingNews(@PathVariable("contentsProvider") String contentsProvider, @RequestParam("url") String url);
