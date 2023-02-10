@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "hermes", url = "${springboot.ip.hermes}/api")
+@FeignClient(name = "hermes", url = "${springboot.ip.server}/api")
 public interface HermesClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "/youtube-and-news/")
