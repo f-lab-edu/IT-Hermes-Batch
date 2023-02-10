@@ -33,6 +33,7 @@ public class Scheduler {
         hermesRequestService.findAndInsertJobCrawling(lastTitleList,ContentsProviderType.WANTED);
     }
 
+    /*
     @Scheduled(fixedDelay = 20000)
     public void scheduleSubscribeAlarmTask(){
         alarmRequestService.getSubscribeAlarm();
@@ -41,6 +42,6 @@ public class Scheduler {
     @Scheduled(fixedDelay = 6000000)
     public void scheduleRecommendAlarmTask(){
         alarmRequestService.getRecommendAlarm();
-    }
+    }*/
 
 }
