@@ -30,7 +30,7 @@ public class Scheduler {
         hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.DREAM_CODING);
         hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.NOMAD_CODERS);
         hermesRequestService.findAndInsertJobCrawling(lastTitleList, ContentsProviderType.SARAMIN);
-        //hermesRequestService.findAndInsertJobCrawling(lastTitleList,ContentsProviderType.WANTED);
+        hermesRequestService.findAndInsertJobCrawling(lastTitleList,ContentsProviderType.WANTED);
     }
 
     /*
