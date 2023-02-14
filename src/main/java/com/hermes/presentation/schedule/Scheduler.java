@@ -19,9 +19,9 @@ public class Scheduler {
     private final HermesRequestService hermesRequestService;
     private final AlarmRequestService alarmRequestService;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 900000)
     public void scheduleFixedRateTask() {
-        log.info("10초에 한번 씩, 실행 -  {}", LocalDateTime.now());
+        log.info("15분에 한번 씩, 실행 -  {}", LocalDateTime.now());
 
         List<CrawlingContentsLastUrl> lastTitleList = hermesRequestService.findAllCrawlingContentsLastTitle().getBody().getCrawlingContentsLastUrlDtoList();
 
