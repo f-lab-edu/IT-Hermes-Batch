@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @FeignClient(name = "crawling", url = "${springboot.ip.crawling}")
-
 public interface CrawlingClient {
     @RequestMapping(method = RequestMethod.GET, value = "/news/{contentsProvider}")
     List<YoutubeAndNewsCrawlingDto> crawlingNews(@PathVariable("contentsProvider") String contentsProvider, @RequestParam("url") String url);
