@@ -18,8 +18,6 @@ public enum ContentsProviderType {
             (webClient) -> webClient.get().uri("/job/wanted").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
     CODING_WORLD("CODING_WORLD", "codingworld",
             (webClient) -> webClient.get().uri("/news/codingworld").retrieve().bodyToFlux(NewsRequestDto.class).toStream().collect(Collectors.toList())),
-    NAVER("NAVER", "naver",
-            (webClient) -> webClient.get().uri("/news/naver").retrieve().bodyToFlux(NewsRequestDto.class).toStream().collect(Collectors.toList())),
     YOZM("YOZM", "yozm",
             (webClient) -> webClient.get().uri("/news/yozm").retrieve().bodyToFlux(NewsRequestDto.class).toStream().collect(Collectors.toList())),
     NOMAD_CODERS("NOMAD_CODERS", "@nomadcoders",
