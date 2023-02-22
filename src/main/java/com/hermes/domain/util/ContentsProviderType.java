@@ -21,9 +21,25 @@ public enum ContentsProviderType {
     YOZM("YOZM", "yozm",
             (webClient) -> webClient.get().uri("/news/yozm").retrieve().bodyToFlux(NewsRequestDto.class).toStream().collect(Collectors.toList())),
     NOMAD_CODERS("NOMAD_CODERS", "@nomadcoders",
-            (webClient) -> webClient.get().uri("/job/saramin").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
+            (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
     DREAM_CODING("DREAM_CODING", "@dream-coding",
-            (webClient) -> webClient.get().uri("/job/saramin").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList()));
+            (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
+    WHITESHIP("WHITESHIP", "@keesun.b",
+                         (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
+    FI("FI", "@foorogrammer4072",
+                         (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
+    LINE_DEVELOP("LINE_DEVELOP", "@linedevlog",
+                         (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
+    DEVELOP_FOOT("DEVELOP_FOOT", "@devbadak",
+                         (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
+    NULLNULL_DEVELOP("NULLNULL_DEVELOP", "@nullnull_not_eq_null",
+                         (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
+    DONGBINNA("DONGBINNA", "@dongbinna",
+                         (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
+    POPE("POPE", "@PopeTV",
+                         (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList())),
+    WOOWA_COURSE("WOOWA_COURSE", "@woowatech",
+                         (webClient) -> webClient.get().uri("/videos/youtube").retrieve().bodyToFlux(JobRequestDto.class).toStream().collect(Collectors.toList()));
 
     private String title;
     private String requestPath;

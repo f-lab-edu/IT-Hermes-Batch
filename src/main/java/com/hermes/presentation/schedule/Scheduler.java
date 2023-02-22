@@ -29,6 +29,14 @@ public class Scheduler {
         hermesRequestService.finaAndInsertNewsCrawling(lastTitleList,ContentsProviderType.CODING_WORLD);
         hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.DREAM_CODING);
         hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.NOMAD_CODERS);
+        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.WHITESHIP);
+        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.FI);
+        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.LINE_DEVELOP);
+        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.DEVELOP_FOOT);
+        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.NULLNULL_DEVELOP);
+        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.DONGBINNA);
+        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.POPE);
+        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.WOOWA_COURSE);
         hermesRequestService.findAndInsertJobCrawling(lastTitleList, ContentsProviderType.SARAMIN);
         hermesRequestService.findAndInsertJobCrawling(lastTitleList,ContentsProviderType.WANTED);
     }
