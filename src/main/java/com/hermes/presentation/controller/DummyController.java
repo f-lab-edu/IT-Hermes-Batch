@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,6 +34,21 @@ public class DummyController {
                 });
             });
         }
+        return ResponseEntity.ok("success");
+    }
+
+    @RequestMapping(value = "/wanted",method = RequestMethod.GET)
+    public ResponseEntity<String> findAndInsertDummyWanted(){
+        for(int page=0; page<=3000; page+=20){
+            List<JobCrawlingDto> wantedCrawlingList = crawlingClient.crawlingDummyJob(ContentsProviderType.WANTED.getTitle(), String.valueOf(page));
+            if(wantedCrawlingList.size() == 0) break;
+            Arrays.stream(JobType.values()).toList().stream().forEach(job -> {
+                Arrays.stream(GradeType.values()).toList().stream().forEach(grade ->{
+                    hermesRequestService.insertJob(grade,ContentsProviderType.WANTED,job,wantedCrawlingList);
+                });
+            });
+        }
+
         return ResponseEntity.ok("success");
     }
 }
