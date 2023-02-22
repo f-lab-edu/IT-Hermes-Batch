@@ -21,4 +21,7 @@ public interface CrawlingClient {
     @RequestMapping(method = RequestMethod.GET, value = "/job/{contentsProvider}")
     List<JobCrawlingDto> crawlingJob(@PathVariable("contentsProvider") String contentsProvider, @RequestParam("job") String job
             , @RequestParam("minExperience") int minExperience, @RequestParam("maxExperience") int maxExperience, @RequestParam("url") String url);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/job/{contentsProvider}")
+    List<JobCrawlingDto> crawlingDummyJob(@PathVariable("contentsProvider") String contentsProvider, @RequestParam("page") String page);
 }

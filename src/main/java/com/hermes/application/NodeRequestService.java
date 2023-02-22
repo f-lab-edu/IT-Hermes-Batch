@@ -24,7 +24,8 @@ public class NodeRequestService {
 
     public List<YoutubeAndNewsCrawlingDto> crawlingYoutube(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList) {
         String crawlingContentsLastUrl = findCrawlingContentsYoutubeAndNewsLastUrl(contentsProviderType, lastTitleList);
-        return crawlingClient.crawlingYoutube(contentsProviderType.getRequestPath(), contentsProviderType.getTitle(), crawlingContentsLastUrl);
+        List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtos = crawlingClient.crawlingYoutube(contentsProviderType.getRequestPath(), contentsProviderType.getTitle(), crawlingContentsLastUrl);
+        return youtubeAndNewsCrawlingDtos;
     }
 
     public List<JobCrawlingDto> crawlingJob(ContentsProviderType contentsProviderType, JobType jobType
