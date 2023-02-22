@@ -15,6 +15,9 @@ public interface CrawlingClient {
     @RequestMapping(method = RequestMethod.GET, value = "/news/{contentsProvider}")
     List<YoutubeAndNewsCrawlingDto> crawlingNews(@PathVariable("contentsProvider") String contentsProvider, @RequestParam("url") String url);
 
+    @RequestMapping(method = RequestMethod.GET, value = "/news/{contentsProvider}")
+    List<YoutubeAndNewsCrawlingDto> crawlingDummyNews(@PathVariable("contentsProvider")String contentsProvider,@RequestParam("page")String page);
+
     @RequestMapping(method = RequestMethod.GET, value = "/videos/youtube")
     List<YoutubeAndNewsCrawlingDto> crawlingYoutube(@RequestParam("contentsProvider") String contentsProvider, @RequestParam("youtuber") String youtuber, @RequestParam("url") String url);
 

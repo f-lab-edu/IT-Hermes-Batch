@@ -1,11 +1,13 @@
 package com.hermes.presentation.controller;
 
 import com.hermes.application.HermesRequestService;
+import com.hermes.domain.util.CategoryType;
 import com.hermes.domain.util.ContentsProviderType;
 import com.hermes.domain.util.GradeType;
 import com.hermes.domain.util.JobType;
 import com.hermes.presentation.client.CrawlingClient;
 import com.hermes.presentation.dto.feignclient.JobCrawlingDto;
+import com.hermes.presentation.dto.feignclient.YoutubeAndNewsCrawlingDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +50,16 @@ public class DummyController {
                 });
             });
         }
+        return ResponseEntity.ok("success");
+    }
 
+    @RequestMapping(value = "/yozm",method = RequestMethod.GET)
+    public ResponseEntity<String> findAndInsertDummyYozm(){
+        for(int page=1; page<=47; page++){
+            List<YoutubeAndNewsCrawlingDto> yozmCrawlingList = crawlingClient.crawlingDummyNews(ContentsProviderType.YOZM.getTitle(), String.valueOf(page));
+            if(yozmCrawlingList.size() == 0) break;
+            hermesRequestService.insertYoutubeAndNews(CategoryType.NEWS,ContentsProviderType.YOZM,yozmCrawlingList);
+        }
         return ResponseEntity.ok("success");
     }
 }
