@@ -1,6 +1,6 @@
 package com.hermes.application;
 
-import com.hermes.presentation.dto.feignclient.CrawlingContentsLastUrl;
+import com.hermes.domain.entity.CrawlingContentsLastUrl;
 import com.hermes.presentation.dto.feignclient.JobCrawlingDto;
 import com.hermes.presentation.dto.feignclient.YoutubeAndNewsCrawlingDto;
 import com.hermes.presentation.client.CrawlingClient;
@@ -9,8 +9,6 @@ import com.hermes.domain.util.GradeType;
 import com.hermes.domain.util.JobType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

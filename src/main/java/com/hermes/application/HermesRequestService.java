@@ -1,13 +1,13 @@
 package com.hermes.application;
 
-import com.hermes.presentation.client.HermesClient;
+import com.hermes.domain.entity.CrawlingContentsLastUrl;
+import com.hermes.domain.factory.CrawlingContentsLastUrlFactory;
 import com.hermes.domain.util.CategoryType;
 import com.hermes.domain.util.ContentsProviderType;
 import com.hermes.domain.util.GradeType;
 import com.hermes.domain.util.JobType;
 import com.hermes.presentation.dto.feignclient.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -16,29 +16,30 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class HermesRequestService {
-    private final HermesClient hermesClient;
     private final NodeRequestService nodeRequestService;
+    private final CrawlingContentsLastUrlFactory crawlingContentsLastUrlFactory;
+    private final ContentsService contentsService;
 
-    public ResponseEntity<CrawlingCommonResponseDto> insertYoutubeAndNews(CategoryType categoryType, ContentsProviderType contentsProviderType, List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList) {
-        if (youtubeAndNewsCrawlingDtoList.isEmpty()) return null;
+    public void insertYoutubeAndNews(CategoryType categoryType, ContentsProviderType contentsProviderType, List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList) {
+        if (youtubeAndNewsCrawlingDtoList.isEmpty()) return;
         YoutubeAndNewsInsertRequestDto youtubeAndNewsInsertRequestDto = YoutubeAndNewsInsertRequestDto.builder()
                 .category(categoryType)
                 .contentsProvider(contentsProviderType)
                 .youtubeAndNewsCrawlingDtoList(youtubeAndNewsCrawlingDtoList)
                 .build();
-        return hermesClient.insertYoutubeAndNews(youtubeAndNewsInsertRequestDto);
+        contentsService.insertYoutubeAndNews(youtubeAndNewsInsertRequestDto);
     }
 
-    public ResponseEntity<CrawlingCommonResponseDto> insertJob(GradeType gradeType, ContentsProviderType contentsProviderType
+    public void insertJob(GradeType gradeType, ContentsProviderType contentsProviderType
             , JobType job, List<JobCrawlingDto> jobCrawlingDtoList) {
-        if (jobCrawlingDtoList.isEmpty()) return null;
+        if (jobCrawlingDtoList.isEmpty()) return;
         JobInsertRequestDto jobInsertRequestDto = JobInsertRequestDto.builder()
                 .grade(gradeType)
                 .contentsProvider(contentsProviderType)
                 .job(job)
                 .jobCrawlingDtoList(jobCrawlingDtoList)
                 .build();
-        return hermesClient.insertJob(jobInsertRequestDto);
+        contentsService.insertJob(jobInsertRequestDto);
     }
 
     public void finaAndInsertYoutubeCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
@@ -61,7 +62,7 @@ public class HermesRequestService {
         });
     }
 
-    public ResponseEntity<CrawlingContentsLastUrlFindAllResponseDto> findAllCrawlingContentsLastTitle() {
-        return hermesClient.findAllCrawlingContentsLastTitle();
+    public List<CrawlingContentsLastUrl> findAllCrawlingContentsLastTitle() {
+        return crawlingContentsLastUrlFactory.parseAllCrawlingContentsLastTitle();
     }
 }
