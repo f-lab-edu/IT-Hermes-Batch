@@ -4,7 +4,6 @@ import com.hermes.application.AlarmRequestService;
 import com.hermes.domain.entity.CrawlingContentsLastUrl;
 import com.hermes.domain.util.CategoryType;
 import com.hermes.application.HermesRequestService;
-import com.hermes.domain.util.ContentsProviderType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
