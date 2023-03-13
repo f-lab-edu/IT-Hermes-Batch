@@ -24,13 +24,13 @@ public class RabbitConsumer {
     private final JobRepository jobRepository;
     private final JobFactory jobFactory;
 
-    @RabbitListener(queues = "codingWorldQueue")
+    @RabbitListener(queues = "CODINGWORLDQueue")
     public void receiveCodingWorldNewsMessage(final String message) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         youtubeAndNewsRepository.save(youtubeAndNewsFactory.parseCrawlingYoutubeAndNews(objectMapper.readValue(message,YoutubeAndNewsCrawlingDto.class), ContentsProviderType.CODING_WORLD,CategoryType.NEWS));
     }
 
-    @RabbitListener(queues = "yozmQueue")
+    @RabbitListener(queues = "YOZMQueue")
     public void receiveYozmNewsMessage(final String message) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         youtubeAndNewsRepository.save(youtubeAndNewsFactory.parseCrawlingYoutubeAndNews(objectMapper.readValue(message,YoutubeAndNewsCrawlingDto.class),ContentsProviderType.YOZM,CategoryType.NEWS));
@@ -97,13 +97,13 @@ public class RabbitConsumer {
     }
 
     /*
-    @RabbitListener(queues = "saraminQueue")
+    @RabbitListener(queues = "SARAMINQueue")
     public void receiveSaraminMessage(final String message) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
 
     }
 
-    @RabbitListener(queues = "wantedQueue")
+    @RabbitListener(queues = "WANTEDQueue")
     public void receiveWantedMessage(final String message){
         ObjectMapper objectMapper = new ObjectMapper();
     }*/
