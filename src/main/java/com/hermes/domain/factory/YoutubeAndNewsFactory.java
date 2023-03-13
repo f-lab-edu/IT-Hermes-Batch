@@ -45,4 +45,21 @@ public class YoutubeAndNewsFactory {
         });
         return youtubeAndNewsList;
     }
+
+    public YoutubeAndNews parseCrawlingYoutubeAndNews(YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto,ContentsProviderType contentsProviderType,CategoryType categoryType){
+        YoutubeAndNews youtubeAndNews = YoutubeAndNews
+                .builder()
+                .title(youtubeAndNewsCrawlingDto.getTitle())
+                .description(youtubeAndNewsCrawlingDto.getDescription())
+                .image(youtubeAndNewsCrawlingDto.getThumbnail())
+                .url(youtubeAndNewsCrawlingDto.getUrl())
+                .contentsStartAt(CommonUtil.parseLocalDateTime(youtubeAndNewsCrawlingDto.getDate()))
+                .viewCount(0L)
+                .isDelete(false)
+                .category(categoryType)
+                .contentsProvider(contentsProviderType)
+                .build();
+        return youtubeAndNews;
+    }
+
 }

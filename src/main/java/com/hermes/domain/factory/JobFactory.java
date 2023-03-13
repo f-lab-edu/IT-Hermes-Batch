@@ -51,4 +51,18 @@ public class JobFactory {
         });
         return jobList;
     }
+
+    public Job parseCrawlingJob(JobCrawlingDto jobCrawlingDto,ContentsProviderType contentsProviderType,GradeType gradeType){
+        Job job = Job.builder()
+                .company(jobCrawlingDto.getCompany())
+                .contentsEndAt(CommonUtil.parseLocalDateTime(jobCrawlingDto.getEndDate()))
+                .contentsProvider(contentsProviderType)
+                .contentsStartAt(CommonUtil.parseLocalDateTime(jobCrawlingDto.getStartDate()))
+                .grade(gradeType)
+                .isDelete(false)
+                .location(jobCrawlingDto.getLocation())
+                .title(jobCrawlingDto.getTitle())
+                .build();
+        return job;
+    }
 }
