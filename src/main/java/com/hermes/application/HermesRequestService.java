@@ -33,9 +33,9 @@ public class HermesRequestService {
     public void insertJob(ContentsProviderType contentsProviderType, List<JobCrawlingDto> jobCrawlingDtoList) {
         if (jobCrawlingDtoList.isEmpty()) return;
         JobInsertRequestDto jobInsertRequestDto = JobInsertRequestDto.builder()
-                .grade(GradeType.valueOf(jobCrawlingDtoList.get(0).getGrade()))
+                .grade(jobCrawlingDtoList.get(0).getGrade())
                 .contentsProvider(contentsProviderType)
-                .job(JobType.valueOf(jobCrawlingDtoList.get(0).getJob()))
+                .job(jobCrawlingDtoList.get(0).getJob())
                 .jobCrawlingDtoList(jobCrawlingDtoList)
                 .build();
         contentsService.insertJob(jobInsertRequestDto);

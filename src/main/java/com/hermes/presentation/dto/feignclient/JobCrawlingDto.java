@@ -6,16 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobCrawlingDto {
+public class JobCrawlingDto implements Serializable {
     private String company;
     private String title;
     private String url;
     private String location;
-    private String grade;
-    private String job;
+    private GradeType grade;
+    private JobType job;
     private String startDate;
     private String endDate;
 }
