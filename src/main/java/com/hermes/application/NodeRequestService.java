@@ -30,7 +30,7 @@ public class NodeRequestService {
     public List<JobCrawlingDto> crawlingJob(ContentsProviderType contentsProviderType, JobType jobType
             , GradeType gradeType, List<CrawlingContentsLastUrl> lastTitleList) {
         String crawlingContentsLastUrl = findCrawlingContentsJobLastUrl(contentsProviderType, lastTitleList, jobType, gradeType);
-        return crawlingClient.crawlingJob(contentsProviderType.getRequestPath(), jobType.getTitle(), gradeType.getMinExperience(), gradeType.getMaxExperience(), crawlingContentsLastUrl);
+        return crawlingClient.crawlingJob(contentsProviderType.getRequestPath(), jobType.getTitle(), gradeType.getName(),gradeType.getMinExperience(), gradeType.getMaxExperience(), crawlingContentsLastUrl);
     }
 
     private String findCrawlingContentsYoutubeAndNewsLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList) {

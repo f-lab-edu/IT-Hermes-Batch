@@ -9,6 +9,7 @@ import com.hermes.domain.util.CategoryType;
 import com.hermes.domain.util.ContentsProviderType;
 import com.hermes.infrastructure.JobRepository;
 import com.hermes.infrastructure.YoutubeAndNewsRepository;
+import com.hermes.presentation.dto.feignclient.JobCrawlingDto;
 import com.hermes.presentation.dto.feignclient.YoutubeAndNewsCrawlingDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -113,16 +114,17 @@ public class RabbitConsumer {
         hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.WOOWA_COURSE, youtubeAndNewsCrawlingDtoList);
     }
 
-    /*
     @RabbitListener(queues = "SARAMINQueue")
     public void receiveSaraminMessage(final String message) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-
+        List<JobCrawlingDto> jobCrawlingDtoList = objectMapper.readValue(message, new TypeReference<>() {});
+        hermesRequestService.insertJob(ContentsProviderType.SARAMIN, jobCrawlingDtoList);
     }
 
     @RabbitListener(queues = "WANTEDQueue")
-    public void receiveWantedMessage(final String message){
+    public void receiveWantedMessage(final String message) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-    }*/
-
+        List<JobCrawlingDto> jobCrawlingDtoList = objectMapper.readValue(message, new TypeReference<>() {});
+        hermesRequestService.insertJob(ContentsProviderType.WANTED, jobCrawlingDtoList);
+    }
 }

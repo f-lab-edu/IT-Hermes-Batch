@@ -30,16 +30,15 @@ public class HermesRequestService {
         contentsService.insertYoutubeAndNews(youtubeAndNewsInsertRequestDto);
     }
 
-    public void insertJob(GradeType gradeType, ContentsProviderType contentsProviderType
-            , JobType job, List<JobCrawlingDto> jobCrawlingDtoList) {
+    public void insertJob(ContentsProviderType contentsProviderType, List<JobCrawlingDto> jobCrawlingDtoList) {
         if (jobCrawlingDtoList.isEmpty()) return;
         JobInsertRequestDto jobInsertRequestDto = JobInsertRequestDto.builder()
-                .grade(gradeType)
+                .grade(GradeType.valueOf(jobCrawlingDtoList.get(0).getGrade()))
                 .contentsProvider(contentsProviderType)
-                .job(job)
+                .job(JobType.valueOf(jobCrawlingDtoList.get(0).getJob()))
                 .jobCrawlingDtoList(jobCrawlingDtoList)
                 .build();
-        //contentsService.insertJob(jobInsertRequestDto);
+        contentsService.insertJob(jobInsertRequestDto);
     }
 
     public void finaAndInsertYoutubeCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {

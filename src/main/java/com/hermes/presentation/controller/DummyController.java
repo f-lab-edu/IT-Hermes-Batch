@@ -32,7 +32,7 @@ public class DummyController {
             if (jobCrawlingList.size() == 0) break;
             Arrays.stream(JobType.values()).toList().stream().forEach(job -> {
                 Arrays.stream(GradeType.values()).toList().stream().forEach(grade -> {
-                    hermesRequestService.insertJob(grade, ContentsProviderType.SARAMIN, job, jobCrawlingList);
+                    hermesRequestService.insertJob(ContentsProviderType.SARAMIN, jobCrawlingList);
                 });
             });
         }
@@ -46,7 +46,7 @@ public class DummyController {
             if(wantedCrawlingList.size() == 0) break;
             Arrays.stream(JobType.values()).toList().stream().forEach(job -> {
                 Arrays.stream(GradeType.values()).toList().stream().forEach(grade ->{
-                    hermesRequestService.insertJob(grade,ContentsProviderType.WANTED,job,wantedCrawlingList);
+                    hermesRequestService.insertJob(ContentsProviderType.WANTED,wantedCrawlingList);
                 });
             });
         }

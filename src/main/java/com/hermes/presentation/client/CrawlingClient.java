@@ -22,7 +22,7 @@ public interface CrawlingClient {
     List<YoutubeAndNewsCrawlingDto> crawlingYoutube(@RequestParam("contentsProvider") String contentsProvider, @RequestParam("youtuber") String youtuber, @RequestParam("url") String url);
 
     @RequestMapping(method = RequestMethod.GET, value = "/job/{contentsProvider}")
-    List<JobCrawlingDto> crawlingJob(@PathVariable("contentsProvider") String contentsProvider, @RequestParam("job") String job
+    List<JobCrawlingDto> crawlingJob(@PathVariable("contentsProvider") String contentsProvider, @RequestParam("job") String job,  @RequestParam("grade") String grade
             , @RequestParam("minExperience") int minExperience, @RequestParam("maxExperience") int maxExperience, @RequestParam("url") String url);
 
     @RequestMapping(method = RequestMethod.GET, value = "/job/{contentsProvider}")
