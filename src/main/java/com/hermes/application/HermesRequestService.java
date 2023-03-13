@@ -39,12 +39,12 @@ public class HermesRequestService {
                 .job(job)
                 .jobCrawlingDtoList(jobCrawlingDtoList)
                 .build();
-        contentsService.insertJob(jobInsertRequestDto);
+        //contentsService.insertJob(jobInsertRequestDto);
     }
 
     public void finaAndInsertYoutubeCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingYoutube(contentsProviderType, lastTitleList);
-        insertYoutubeAndNews(CategoryType.YOUTUBE, contentsProviderType, youtubeAndNewsCrawlingDtoList);
+        //insertYoutubeAndNews(CategoryType.YOUTUBE, contentsProviderType, youtubeAndNewsCrawlingDtoList);
     }
 
     public void finaAndInsertNewsCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
@@ -57,7 +57,7 @@ public class HermesRequestService {
             Arrays.stream(GradeType.values()).toList().stream().forEach(grade -> {
                 List<JobCrawlingDto> jobCrawlingDtoList = nodeRequestService.crawlingJob(contentsProviderType,
                         job, grade, lastTitleList);
-                insertJob(grade, contentsProviderType, job, jobCrawlingDtoList);
+                //insertJob(grade, contentsProviderType, job, jobCrawlingDtoList);
             });
         });
     }
