@@ -28,7 +28,7 @@ public class JobFactory {
         String url = jobCrawlingDto.getUrl();
         String location = jobCrawlingDto.getLocation();
         LocalDateTime startDate = CommonUtil.parseLocalDateTime(jobCrawlingDto.getStartDate());
-        LocalDateTime endDate = CommonUtil.parseLocalDateTime(jobCrawlingDto.getStartDate());
+        LocalDateTime endDate = CommonUtil.parseLocalDateTime(jobCrawlingDto.getEndDate());
 
         Job job = Job
                 .builder()
