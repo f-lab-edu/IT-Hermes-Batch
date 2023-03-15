@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobCrawlingDto implements Serializable {
+public class JobCrawlingDto {
     private String company;
     private String title;
     private String url;

@@ -16,18 +16,13 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class YoutubeAndNewsFactory {
+    public YoutubeAndNews insertYoutubeAndNews(CategoryType categoryType, ContentsProviderType contentsProvider, YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto) {
 
-    public List<YoutubeAndNews> parseYoutubeAndNews(YoutubeAndNewsInsertRequestDto youtubeAndNewsCrawlingDtoList) {
-        List<YoutubeAndNews> youtubeAndNewsList = new ArrayList<>();
-        List<YoutubeAndNewsCrawlingDto> crawlingList = youtubeAndNewsCrawlingDtoList.getYoutubeAndNewsCrawlingDtoList();
-        CategoryType categoryType = youtubeAndNewsCrawlingDtoList.getCategory();
-        ContentsProviderType contentsProvider = youtubeAndNewsCrawlingDtoList.getContentsProvider();
-        crawlingList.stream().forEach(v -> {
-            String title = v.getTitle();
-            String description = v.getDescription();
-            String thumbnail = v.getThumbnail();
-            String url = v.getUrl();
-            LocalDateTime date = CommonUtil.parseLocalDateTime(v.getDate());
+            String title = youtubeAndNewsCrawlingDto.getTitle();
+            String description = youtubeAndNewsCrawlingDto.getDescription();
+            String thumbnail = youtubeAndNewsCrawlingDto.getThumbnail();
+            String url = youtubeAndNewsCrawlingDto.getUrl();
+            LocalDateTime date = CommonUtil.parseLocalDateTime(youtubeAndNewsCrawlingDto.getDate());
 
             YoutubeAndNews youtubeAndNews = YoutubeAndNews
                     .builder()
@@ -41,25 +36,18 @@ public class YoutubeAndNewsFactory {
                     .category(categoryType)
                     .contentsProvider(contentsProvider)
                     .build();
+
+        return youtubeAndNews;
+    }
+    public List<YoutubeAndNews> insertYoutubeAndNewsList(YoutubeAndNewsInsertRequestDto youtubeAndNewsCrawlingDtoList) {
+        List<YoutubeAndNews> youtubeAndNewsList = new ArrayList<>();
+        List<YoutubeAndNewsCrawlingDto> crawlingList = youtubeAndNewsCrawlingDtoList.getYoutubeAndNewsCrawlingDtoList();
+        CategoryType categoryType = youtubeAndNewsCrawlingDtoList.getCategory();
+        ContentsProviderType contentsProvider = youtubeAndNewsCrawlingDtoList.getContentsProvider();
+        crawlingList.stream().forEach(v -> {
+            YoutubeAndNews youtubeAndNews = insertYoutubeAndNews(categoryType, contentsProvider, v);
             youtubeAndNewsList.add(youtubeAndNews);
         });
         return youtubeAndNewsList;
     }
-
-    public YoutubeAndNews parseCrawlingYoutubeAndNews(YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto,ContentsProviderType contentsProviderType,CategoryType categoryType){
-        YoutubeAndNews youtubeAndNews = YoutubeAndNews
-                .builder()
-                .title(youtubeAndNewsCrawlingDto.getTitle())
-                .description(youtubeAndNewsCrawlingDto.getDescription())
-                .image(youtubeAndNewsCrawlingDto.getThumbnail())
-                .url(youtubeAndNewsCrawlingDto.getUrl())
-                .contentsStartAt(CommonUtil.parseLocalDateTime(youtubeAndNewsCrawlingDto.getDate()))
-                .viewCount(0L)
-                .isDelete(false)
-                .category(categoryType)
-                .contentsProvider(contentsProviderType)
-                .build();
-        return youtubeAndNews;
-    }
-
 }

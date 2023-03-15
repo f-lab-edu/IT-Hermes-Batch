@@ -20,17 +20,25 @@ public class HermesRequestService {
     private final CrawlingContentsLastUrlFactory crawlingContentsLastUrlFactory;
     private final ContentsService contentsService;
 
-    public void insertYoutubeAndNews(CategoryType categoryType, ContentsProviderType contentsProviderType, List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList) {
+    public void insertYoutubeAndNews(CategoryType categoryType, ContentsProviderType contentsProviderType,YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto) {
+        contentsService.insertYoutubeAndNews(categoryType, contentsProviderType,youtubeAndNewsCrawlingDto);
+    }
+
+    public void insertJob(ContentsProviderType contentsProviderType, JobCrawlingDto jobCrawlingDto) {
+        contentsService.insertJob(contentsProviderType, jobCrawlingDto);
+    }
+
+    public void insertYoutubeAndNewsList(CategoryType categoryType, ContentsProviderType contentsProviderType, List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList) {
         if (youtubeAndNewsCrawlingDtoList.isEmpty()) return;
         YoutubeAndNewsInsertRequestDto youtubeAndNewsInsertRequestDto = YoutubeAndNewsInsertRequestDto.builder()
                 .category(categoryType)
                 .contentsProvider(contentsProviderType)
                 .youtubeAndNewsCrawlingDtoList(youtubeAndNewsCrawlingDtoList)
                 .build();
-        contentsService.insertYoutubeAndNews(youtubeAndNewsInsertRequestDto);
+        contentsService.insertYoutubeAndNewsList(youtubeAndNewsInsertRequestDto);
     }
 
-    public void insertJob(ContentsProviderType contentsProviderType, List<JobCrawlingDto> jobCrawlingDtoList) {
+    public void insertJobList(ContentsProviderType contentsProviderType, List<JobCrawlingDto> jobCrawlingDtoList) {
         if (jobCrawlingDtoList.isEmpty()) return;
         JobInsertRequestDto jobInsertRequestDto = JobInsertRequestDto.builder()
                 .grade(jobCrawlingDtoList.get(0).getGrade())
@@ -38,7 +46,7 @@ public class HermesRequestService {
                 .job(jobCrawlingDtoList.get(0).getJob())
                 .jobCrawlingDtoList(jobCrawlingDtoList)
                 .build();
-        contentsService.insertJob(jobInsertRequestDto);
+        contentsService.insertJobList(jobInsertRequestDto);
     }
 
     public void finaAndInsertYoutubeCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
@@ -48,7 +56,7 @@ public class HermesRequestService {
 
     public void finaAndInsertNewsCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingNews(contentsProviderType, lastTitleList);
-        insertYoutubeAndNews(CategoryType.NEWS, contentsProviderType, youtubeAndNewsCrawlingDtoList);
+        //insertYoutubeAndNews(CategoryType.NEWS, contentsProviderType, youtubeAndNewsCrawlingDtoList);
     }
 
     public void findAndInsertJobCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {

@@ -18,51 +18,44 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JobFactory {
 
-    public List<Job> insertJob(JobInsertRequestDto jobInsertRequestDto) {
+    public Job insertJob(ContentsProviderType contentsProvider, JobCrawlingDto jobCrawlingDto) {
+
+        GradeType grade = jobCrawlingDto.getGrade();
+        JobType jobType = jobCrawlingDto.getJob();
+
+        String company = jobCrawlingDto.getCompany();
+        String title = jobCrawlingDto.getTitle();
+        String url = jobCrawlingDto.getUrl();
+        String location = jobCrawlingDto.getLocation();
+        LocalDateTime startDate = CommonUtil.parseLocalDateTime(jobCrawlingDto.getStartDate());
+        LocalDateTime endDate = CommonUtil.parseLocalDateTime(jobCrawlingDto.getStartDate());
+
+        Job job = Job
+                .builder()
+                .company(company)
+                .title(title)
+                .url(url)
+                .location(location)
+                .grade(grade)
+                .contentsStartAt(startDate)
+                .contentsEndAt(endDate)
+                .isDelete(false)
+                .viewCount(0L)
+                .contentsProvider(contentsProvider)
+                .jobType(jobType)
+                .build();
+
+        return job;
+    }
+
+    public List<Job> insertJobList(JobInsertRequestDto jobInsertRequestDto) {
         List<Job> jobList = new ArrayList<>();
         List<JobCrawlingDto> jobCrawlingDtoList = jobInsertRequestDto.getJobCrawlingDtoList();
         ContentsProviderType contentsProvider = jobInsertRequestDto.getContentsProvider();
-        GradeType grade = jobInsertRequestDto.getGrade();
-        JobType jobType = jobInsertRequestDto.getJob();
         jobCrawlingDtoList.stream().forEach(v -> {
-            String company = v.getCompany();
-            String title = v.getTitle();
-            String url = v.getUrl();
-            String location = v.getLocation();
-            LocalDateTime startDate = CommonUtil.parseLocalDateTime(v.getStartDate());
-            LocalDateTime endDate = CommonUtil.parseLocalDateTime(v.getStartDate());
-
-            Job job = Job
-                    .builder()
-                    .company(company)
-                    .title(title)
-                    .url(url)
-                    .location(location)
-                    .grade(grade)
-                    .contentsStartAt(startDate)
-                    .contentsEndAt(endDate)
-                    .isDelete(false)
-                    .viewCount(0L)
-                    .contentsProvider(contentsProvider)
-                    .jobType(jobType)
-                    .build();
-
+            Job job = insertJob(contentsProvider, v);
             jobList.add(job);
         });
         return jobList;
-    }
-
-    public Job parseCrawlingJob(JobCrawlingDto jobCrawlingDto,ContentsProviderType contentsProviderType,GradeType gradeType){
-        Job job = Job.builder()
-                .company(jobCrawlingDto.getCompany())
-                .contentsEndAt(CommonUtil.parseLocalDateTime(jobCrawlingDto.getEndDate()))
-                .contentsProvider(contentsProviderType)
-                .contentsStartAt(CommonUtil.parseLocalDateTime(jobCrawlingDto.getStartDate()))
-                .grade(gradeType)
-                .isDelete(false)
-                .location(jobCrawlingDto.getLocation())
-                .title(jobCrawlingDto.getTitle())
-                .build();
-        return job;
     }
 }
