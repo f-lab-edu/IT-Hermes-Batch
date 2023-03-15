@@ -13,4 +13,5 @@ public class YoutubeAndNewsCrawlingDto {
     private String thumbnail;
     private String url;
     private String date;
+    private String crawlingIndex;
 }

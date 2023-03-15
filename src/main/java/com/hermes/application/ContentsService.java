@@ -37,14 +37,53 @@ public class ContentsService {
 
     @Transactional
     public void insertJob(ContentsProviderType contentsProviderType, JobCrawlingDto jobCrawlingDto) {
-
         Job job = jobFactory.insertJob(contentsProviderType, jobCrawlingDto);
         jobRepository.save(job);
+        int crawlingIndex = Integer.parseInt(jobCrawlingDto.getCrawlingIndex());
+        if (crawlingIndex == 0) {
+            updateJobLastUrl(job, job.getJobType());
+        }
+    }
 
-        // lastUrl 보류..
+    @Transactional
+    public void insertYoutubeAndNews(CategoryType categoryType, ContentsProviderType contentsProviderType,
+                                     YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto) {
+        YoutubeAndNews youtubeAndNews = youtubeAndNewsFactory.insertYoutubeAndNews(categoryType, contentsProviderType, youtubeAndNewsCrawlingDto);
+        youtubeAndNewsRepository.save(youtubeAndNews);
+
+        int crawlingIndex = Integer.parseInt(youtubeAndNewsCrawlingDto.getCrawlingIndex());
+        if (crawlingIndex == 0) {
+            updateYoutubeAndNewsLastUrl(youtubeAndNews);
+        }
+    }
+
+    @Transactional
+    public void insertJobList(JobInsertRequestDto jobInsertRequestDto) {
+        if (jobInsertRequestDto.getJobCrawlingDtoList().isEmpty()) throw new EmptyStackException();
+
+        List<Job> jobList = jobFactory.insertJobList(jobInsertRequestDto);
+        jobList.stream().forEach(v -> jobRepository.save(v));
+
+        Job recentJob = jobList.get(0);
+
+        updateJobLastUrl(recentJob, jobInsertRequestDto.getJob());
+    }
+
+    @Transactional
+    public void insertYoutubeAndNewsList(YoutubeAndNewsInsertRequestDto youtubeAndNewsCrawlingDtoList) {
+        if (youtubeAndNewsCrawlingDtoList.getYoutubeAndNewsCrawlingDtoList().isEmpty()) throw new EmptyStackException();
+
+        List<YoutubeAndNews> youtubeAndNewsList = youtubeAndNewsFactory.insertYoutubeAndNewsList(youtubeAndNewsCrawlingDtoList);
+        youtubeAndNewsList.stream().forEach(v -> youtubeAndNewsRepository.save(v));
+
+        YoutubeAndNews recentYoutubeAndNews = youtubeAndNewsList.get(0);
+
+        updateYoutubeAndNewsLastUrl(recentYoutubeAndNews);
+    }
+
+    private void updateJobLastUrl(Job job, JobType jobType) {
         ContentsProviderType contentsProvider = job.getContentsProvider();
         GradeType grade = job.getGrade();
-        JobType jobType = job.getJobType();
 
         Optional<CrawlingContentsLastUrl> contentsLastTitle = crawlingContentsLastUrlRepository.findByContentsProviderAndGradeAndJob(contentsProvider, grade, jobType);
         CrawlingContentsLastUrl recentCrawlingContentsLastUrl = crawlingContentsLastUrlFactory.parseCrawlingContentsLastUrlToJob(job, jobType);
@@ -59,65 +98,10 @@ public class ContentsService {
         );
     }
 
-    @Transactional
-    public void insertYoutubeAndNews(CategoryType categoryType, ContentsProviderType contentsProviderType, YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto) {
-
-        YoutubeAndNews youtubeAndNews = youtubeAndNewsFactory.insertYoutubeAndNews(categoryType, contentsProviderType, youtubeAndNewsCrawlingDto);
-        youtubeAndNewsRepository.save(youtubeAndNews);
-
-        //LastUrl 보류
+    private void updateYoutubeAndNewsLastUrl(YoutubeAndNews youtubeAndNews) {
         ContentsProviderType contentsProvider = youtubeAndNews.getContentsProvider();
         Optional<CrawlingContentsLastUrl> contentsLastTitle = crawlingContentsLastUrlRepository.findByContentsProvider(contentsProvider);
         CrawlingContentsLastUrl recentCrawlingContentsLastUrl = crawlingContentsLastUrlFactory.parseCrawlingContentsLastUrlToYoutubeAndNews(youtubeAndNews);
-
-        contentsLastTitle.ifPresentOrElse(
-                v -> {
-                    v.updateLastUrl(recentCrawlingContentsLastUrl);
-                },
-                () -> {
-                    crawlingContentsLastUrlRepository.save(recentCrawlingContentsLastUrl);
-                }
-        );
-    }
-
-    @Transactional
-    public void insertJobList(JobInsertRequestDto jobInsertRequestDto) {
-        if (jobInsertRequestDto.getJobCrawlingDtoList().isEmpty()) throw new EmptyStackException();
-
-        List<Job> jobList = jobFactory.insertJobList(jobInsertRequestDto);
-        jobList.stream().forEach(v -> jobRepository.save(v));
-
-        Job recentJob = jobList.get(0);
-
-        ContentsProviderType contentsProvider = recentJob.getContentsProvider();
-        GradeType grade = recentJob.getGrade();
-        JobType jobType = jobInsertRequestDto.getJob();
-
-        Optional<CrawlingContentsLastUrl> contentsLastTitle = crawlingContentsLastUrlRepository.findByContentsProviderAndGradeAndJob(contentsProvider, grade, jobType);
-        CrawlingContentsLastUrl recentCrawlingContentsLastUrl = crawlingContentsLastUrlFactory.parseCrawlingContentsLastUrlToJob(recentJob, jobType);
-
-        contentsLastTitle.ifPresentOrElse(
-                v -> {
-                    v.updateLastUrl(recentCrawlingContentsLastUrl);
-                },
-                () -> {
-                    crawlingContentsLastUrlRepository.save(recentCrawlingContentsLastUrl);
-                }
-        );
-    }
-
-    @Transactional
-    public void insertYoutubeAndNewsList(YoutubeAndNewsInsertRequestDto youtubeAndNewsCrawlingDtoList) {
-        if(youtubeAndNewsCrawlingDtoList.getYoutubeAndNewsCrawlingDtoList().isEmpty()) throw new EmptyStackException();
-
-        List<YoutubeAndNews> youtubeAndNewsList = youtubeAndNewsFactory.insertYoutubeAndNewsList(youtubeAndNewsCrawlingDtoList);
-        youtubeAndNewsList.stream().forEach(v -> youtubeAndNewsRepository.save(v));
-
-        YoutubeAndNews recentYoutubeAndNews = youtubeAndNewsList.get(0);
-
-        ContentsProviderType contentsProvider = recentYoutubeAndNews.getContentsProvider();
-        Optional<CrawlingContentsLastUrl> contentsLastTitle = crawlingContentsLastUrlRepository.findByContentsProvider(contentsProvider);
-        CrawlingContentsLastUrl recentCrawlingContentsLastUrl = crawlingContentsLastUrlFactory.parseCrawlingContentsLastUrlToYoutubeAndNews(recentYoutubeAndNews);
 
         contentsLastTitle.ifPresentOrElse(
                 v -> {

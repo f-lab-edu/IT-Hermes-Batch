@@ -20,4 +20,5 @@ public class JobCrawlingDto {
     private JobType job;
     private String startDate;
     private String endDate;
+    private String crawlingIndex;
 }
