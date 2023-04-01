@@ -28,7 +28,10 @@ public interface HermesClient {
     @RequestMapping(method = RequestMethod.GET, value = "/alarm/recommend")
     ResponseEntity<CrawlingCommonResponseDto> alarmRecommendContents();
 
-    @RequestMapping(method = RequestMethod.GET, value = "/elasticsearch/contents")
+    @RequestMapping(method = RequestMethod.GET, value = "/contents/elasticsearch")
     ResponseEntity<CrawlingCommonResponseDto> updateContentsElasticSearch();
+
+    @RequestMapping(method = RequestMethod.GET, value = "/subscribe/elasticsearch")
+    ResponseEntity<CrawlingCommonResponseDto> updateSubscribeElasticSearch();
 
 }

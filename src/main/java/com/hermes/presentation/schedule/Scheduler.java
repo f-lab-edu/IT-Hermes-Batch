@@ -31,8 +31,13 @@ public class Scheduler {
     }
 
     @Scheduled(fixedDelay = 1000 * 60 * 20)
-    public void scheduleUpdateElasticSearchTask(){
+    public void scheduleUpdateContentsESTask(){
         elasticSearchRequestService.updateElasticSearchContents();
+    }
+
+    @Scheduled(fixedDelay = 1000 * 60 * 1)
+    public void scheduleUpdateSubscribeESTask(){
+        elasticSearchRequestService.updateElasticSearchSubscribe();
     }
 
     /*

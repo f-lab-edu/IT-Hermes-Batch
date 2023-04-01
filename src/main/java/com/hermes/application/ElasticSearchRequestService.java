@@ -16,4 +16,8 @@ public class ElasticSearchRequestService {
         return hermesClient.updateContentsElasticSearch();
     }
 
+    public ResponseEntity<CrawlingCommonResponseDto> updateElasticSearchSubscribe(){
+        return hermesClient.updateSubscribeElasticSearch();
+    }
+
 }
