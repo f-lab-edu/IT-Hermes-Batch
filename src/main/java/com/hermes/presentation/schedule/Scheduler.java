@@ -1,6 +1,7 @@
 package com.hermes.presentation.schedule;
 
 import com.hermes.application.AlarmRequestService;
+import com.hermes.application.ElasticSearchRequestService;
 import com.hermes.domain.entity.CrawlingContentsLastUrl;
 import com.hermes.domain.util.CategoryType;
 import com.hermes.application.HermesRequestService;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Scheduler {
     private final HermesRequestService hermesRequestService;
+    private final ElasticSearchRequestService elasticSearchRequestService;
     private final AlarmRequestService alarmRequestService;
 
     @Scheduled(fixedDelay = 1000 * 60 * 15)
@@ -26,6 +28,11 @@ public class Scheduler {
         List<CrawlingContentsLastUrl> crawlingContentsLastTitle = hermesRequestService.findAllCrawlingContentsLastTitle();
         List<CategoryType> categoryTypes = Arrays.stream(CategoryType.values()).toList();
         categoryTypes.stream().forEach(categoryType -> CategoryType.findAndInsertCategoryFunctional(categoryType, crawlingContentsLastTitle, hermesRequestService));
+    }
+
+    @Scheduled(fixedDelay = 1000 * 60 * 20)
+    public void scheduleUpdateElasticSearchTask(){
+        elasticSearchRequestService.updateElasticSearchContents();
     }
 
     /*
