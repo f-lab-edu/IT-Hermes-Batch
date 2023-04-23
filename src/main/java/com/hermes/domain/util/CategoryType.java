@@ -14,19 +14,22 @@ public enum CategoryType {
             hermesRequestService.findAndInsertJobCrawling(crawlingContentsLastUrl,jobContentsProviderTypes);
         });
     }),*/
-    /*
+
     NEWS("NEWS", Arrays.asList(ContentsProviderType.YOZM),(crawlingContentsLastUrl, hermesRequestService) -> {
         List<ContentsProviderType> contentsProviderTypes = CategoryType.valueOf("NEWS").contentsProviderTypes;
         contentsProviderTypes.stream().forEach(newsContentsProviderTypes -> {
-            hermesRequestService.finaAndInsertNewsCrawling(crawlingContentsLastUrl, newsContentsProviderTypes);
+            hermesRequestService.finaAndInsertNewsCrawling(String.valueOf(crawlingContentsLastUrl), newsContentsProviderTypes);
         });
-    }),*/
+    }),
     YOUTUBE("YOUTUBE", Arrays.asList(
-            ContentsProviderType.NOMAD_CODERS),
+            ContentsProviderType.NOMAD_CODERS, ContentsProviderType.DREAM_CODING,
+            ContentsProviderType.WHITESHIP,ContentsProviderType.FI,ContentsProviderType.LINE_DEVELOP,
+            ContentsProviderType.DEVELOP_FOOT, ContentsProviderType.NULLNULL_DEVELOP, ContentsProviderType.DONGBINNA,
+            ContentsProviderType.POPE, ContentsProviderType.WOOWA_COURSE),
         (crawlingContentsLastUrl, hermesRequestService) -> {
         List<ContentsProviderType> contentsProviderTypes = CategoryType.valueOf("YOUTUBE").contentsProviderTypes;
         contentsProviderTypes.stream().forEach(youtubeContentsProviderTypes -> {
-            hermesRequestService.finaAndInsertYoutubeCrawling(crawlingContentsLastUrl, youtubeContentsProviderTypes);
+            hermesRequestService.finaAndInsertYoutubeCrawling(String.valueOf(crawlingContentsLastUrl), youtubeContentsProviderTypes);
         });
     });
 

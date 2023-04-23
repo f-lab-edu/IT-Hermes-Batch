@@ -1,6 +1,7 @@
 package com.hermes.presentation.controller;
 
 import com.hermes.application.HermesRequestService;
+import com.hermes.application.NodeRequestService;
 import com.hermes.domain.entity.CrawlingContentsLastUrl;
 import com.hermes.domain.util.CategoryType;
 import com.hermes.domain.util.ContentsProviderType;
@@ -25,12 +26,20 @@ import java.util.List;
 public class DummyController {
     private final CrawlingClient crawlingClient;
     private final HermesRequestService hermesRequestService;
+    private final NodeRequestService nodeRequestService;
 
     @RequestMapping(value = "/mq", method = RequestMethod.GET)
     public ResponseEntity<String> findAndInsertDummySaramin() {
-        List<CrawlingContentsLastUrl> crawlingContentsLastTitle = hermesRequestService.findAllCrawlingContentsLastTitle();
-        List<CategoryType> categoryTypes = Arrays.stream(CategoryType.values()).toList();
-        categoryTypes.stream().forEach(categoryType -> CategoryType.findAndInsertCategoryFunctional(categoryType, crawlingContentsLastTitle, hermesRequestService));
+        nodeRequestService.crawlingNews(ContentsProviderType.YOZM,"no data");
+        nodeRequestService.crawlingYoutube(ContentsProviderType.DREAM_CODING,"https://www.youtube.com/watch?v=1ZDjzJm3vPY");
+        nodeRequestService.crawlingYoutube(ContentsProviderType.NOMAD_CODERS,"https://www.youtube.com/watch?v=4a_FVSWTRcg");
+        nodeRequestService.crawlingYoutube(ContentsProviderType.WHITESHIP,"https://www.youtube.com/watch?v=gW6v2PPGCRc");
+        nodeRequestService.crawlingYoutube(ContentsProviderType.FI,"no data");
+        nodeRequestService.crawlingYoutube(ContentsProviderType.DEVELOP_FOOT,"https://www.youtube.com/watch?v=Xb8LsgnTT8w");
+        nodeRequestService.crawlingYoutube(ContentsProviderType.NULLNULL_DEVELOP,"https://www.youtube.com/watch?v=O-WEJIXnrYs");
+        nodeRequestService.crawlingYoutube(ContentsProviderType.DONGBINNA,"https://www.youtube.com/watch?v=oFV00xfrQ9Y");
+        nodeRequestService.crawlingYoutube(ContentsProviderType.POPE,"no data");
+        nodeRequestService.crawlingYoutube(ContentsProviderType.WOOWA_COURSE,"no data");
         return ResponseEntity.ok("success");
     }
 
