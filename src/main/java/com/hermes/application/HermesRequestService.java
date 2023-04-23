@@ -27,9 +27,10 @@ public class HermesRequestService {
                 .contentsProvider(contentsProviderType)
                 .youtubeAndNewsCrawlingDtoList(youtubeAndNewsCrawlingDtoList)
                 .build();
-        contentsService.insertYoutubeAndNews(youtubeAndNewsInsertRequestDto);
+        //contentsService.insertYoutubeAndNews(youtubeAndNewsInsertRequestDto);
     }
 
+    /*
     public void insertJob(GradeType gradeType, ContentsProviderType contentsProviderType
             , JobType job, List<JobCrawlingDto> jobCrawlingDtoList) {
         if (jobCrawlingDtoList.isEmpty()) return;
@@ -40,7 +41,7 @@ public class HermesRequestService {
                 .jobCrawlingDtoList(jobCrawlingDtoList)
                 .build();
         contentsService.insertJob(jobInsertRequestDto);
-    }
+    }*/
 
     public void finaAndInsertYoutubeCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList = nodeRequestService.crawlingYoutube(contentsProviderType, lastTitleList);
@@ -52,6 +53,7 @@ public class HermesRequestService {
         insertYoutubeAndNews(CategoryType.NEWS, contentsProviderType, youtubeAndNewsCrawlingDtoList);
     }
 
+    /*
     public void findAndInsertJobCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         Arrays.stream(JobType.values()).toList().stream().forEach(job -> {
             Arrays.stream(GradeType.values()).toList().stream().forEach(grade -> {
@@ -60,7 +62,7 @@ public class HermesRequestService {
                 insertJob(grade, contentsProviderType, job, jobCrawlingDtoList);
             });
         });
-    }
+    }*/
 
     public List<CrawlingContentsLastUrl> findAllCrawlingContentsLastTitle() {
         return crawlingContentsLastUrlFactory.parseAllCrawlingContentsLastTitle();

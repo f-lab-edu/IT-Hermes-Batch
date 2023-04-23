@@ -27,11 +27,12 @@ public class NodeRequestService {
         return youtubeAndNewsCrawlingDtos;
     }
 
+    /*
     public List<JobCrawlingDto> crawlingJob(ContentsProviderType contentsProviderType, JobType jobType
             , GradeType gradeType, List<CrawlingContentsLastUrl> lastTitleList) {
         String crawlingContentsLastUrl = findCrawlingContentsJobLastUrl(contentsProviderType, lastTitleList, jobType, gradeType);
         return crawlingClient.crawlingJob(contentsProviderType.getRequestPath(), jobType.getTitle(), gradeType.getMinExperience(), gradeType.getMaxExperience(), crawlingContentsLastUrl);
-    }
+    }*/
 
     private String findCrawlingContentsYoutubeAndNewsLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList) {
         if (lastTitleList == null) return "noData";
@@ -42,6 +43,7 @@ public class NodeRequestService {
                 .orElse("noData");
     }
 
+    /*
     private String findCrawlingContentsJobLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList, JobType jobType, GradeType gradeType) {
         if (lastTitleList == null) return "noData";
         return lastTitleList.stream()
@@ -51,5 +53,5 @@ public class NodeRequestService {
                 .map(v -> v.getLastUrl())
                 .findFirst()
                 .orElse("noData");
-    }
+    }*/
 }

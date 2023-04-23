@@ -23,6 +23,10 @@ public class YoutubeAndNewsFactory {
         CategoryType categoryType = youtubeAndNewsCrawlingDtoList.getCategory();
         ContentsProviderType contentsProvider = youtubeAndNewsCrawlingDtoList.getContentsProvider();
         crawlingList.stream().forEach(v -> {
+            System.out.println(contentsProvider);
+            System.out.println(v.getDate());
+            System.out.println(v.getTitle());
+            System.out.println("**********");
             String title = v.getTitle();
             String description = v.getDescription();
             String thumbnail = v.getThumbnail();
