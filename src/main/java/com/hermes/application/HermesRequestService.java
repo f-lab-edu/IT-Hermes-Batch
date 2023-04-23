@@ -24,9 +24,10 @@ public class HermesRequestService {
         contentsService.insertYoutubeAndNews(categoryType, contentsProviderType,youtubeAndNewsCrawlingDto);
     }
 
+    /*
     public void insertJob(ContentsProviderType contentsProviderType, JobCrawlingDto jobCrawlingDto) {
         contentsService.insertJob(contentsProviderType, jobCrawlingDto);
-    }
+    }*/
 
     public void insertYoutubeAndNewsList(CategoryType categoryType, ContentsProviderType contentsProviderType, List<YoutubeAndNewsCrawlingDto> youtubeAndNewsCrawlingDtoList) {
         if (youtubeAndNewsCrawlingDtoList.isEmpty()) return;
@@ -59,6 +60,7 @@ public class HermesRequestService {
         //insertYoutubeAndNews(CategoryType.NEWS, contentsProviderType, youtubeAndNewsCrawlingDtoList);
     }
 
+    /*
     public void findAndInsertJobCrawling(List<CrawlingContentsLastUrl> lastTitleList, ContentsProviderType contentsProviderType) {
         Arrays.stream(JobType.values()).toList().stream().forEach(job -> {
             Arrays.stream(GradeType.values()).toList().stream().forEach(grade -> {
@@ -67,7 +69,7 @@ public class HermesRequestService {
                 //insertJob(grade, contentsProviderType, job, jobCrawlingDtoList);
             });
         });
-    }
+    }*/
 
     public List<CrawlingContentsLastUrl> findAllCrawlingContentsLastTitle() {
         return crawlingContentsLastUrlFactory.parseAllCrawlingContentsLastTitle();

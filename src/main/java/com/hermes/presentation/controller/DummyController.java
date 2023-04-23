@@ -1,6 +1,7 @@
 package com.hermes.presentation.controller;
 
 import com.hermes.application.HermesRequestService;
+import com.hermes.domain.entity.CrawlingContentsLastUrl;
 import com.hermes.domain.util.CategoryType;
 import com.hermes.domain.util.ContentsProviderType;
 import com.hermes.domain.util.GradeType;
@@ -25,6 +26,16 @@ public class DummyController {
     private final CrawlingClient crawlingClient;
     private final HermesRequestService hermesRequestService;
 
+
+    @RequestMapping(value = "/rabbitmq ", method = RequestMethod.GET)
+    public ResponseEntity<String> findAndInsertDummySaramin() {
+        List<CrawlingContentsLastUrl> crawlingContentsLastTitle = hermesRequestService.findAllCrawlingContentsLastTitle();
+        List<CategoryType> categoryTypes = Arrays.stream(CategoryType.values()).toList();
+        categoryTypes.stream().forEach(categoryType -> CategoryType.findAndInsertCategoryFunctional(categoryType, crawlingContentsLastTitle, hermesRequestService));
+        return ResponseEntity.ok("success");
+    }
+
+/*
     @RequestMapping(value = "/saramin", method = RequestMethod.GET)
     public ResponseEntity<String> findAndInsertDummySaramin() {
         for (int page = 1; page <= Integer.MAX_VALUE; page++) {
@@ -61,5 +72,5 @@ public class DummyController {
             hermesRequestService.insertYoutubeAndNewsList(CategoryType.NEWS,ContentsProviderType.YOZM,yozmCrawlingList);
         }
         return ResponseEntity.ok("success");
-    }
+    }*/
 }

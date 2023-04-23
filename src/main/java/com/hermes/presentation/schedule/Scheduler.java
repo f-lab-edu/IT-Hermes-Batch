@@ -22,6 +22,7 @@ public class Scheduler {
     private final ElasticSearchRequestService elasticSearchRequestService;
     private final AlarmRequestService alarmRequestService;
 
+    /*
     @Scheduled(fixedDelay = 1000 * 60 * 15)
     public void scheduleFixedRateTask() {
         log.info("15분에 한번 씩, 실행 -  {}", LocalDateTime.now());
@@ -38,7 +39,7 @@ public class Scheduler {
     @Scheduled(fixedDelay = 1000 * 60 * 1)
     public void scheduleUpdateSubscribeESTask(){
         elasticSearchRequestService.updateElasticSearchSubscribe();
-    }
+    }*/
 
     /*
     @Scheduled(fixedDelay = 20000)

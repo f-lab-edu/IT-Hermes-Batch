@@ -7,13 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum CategoryType {
+    /*
     JOB("JOB", Arrays.asList(ContentsProviderType.SARAMIN, ContentsProviderType.WANTED),(crawlingContentsLastUrl, hermesRequestService) -> {
         List<ContentsProviderType> contentsProviderTypes = CategoryType.valueOf("JOB").contentsProviderTypes;
         contentsProviderTypes.stream().forEach(jobContentsProviderTypes-> {
             hermesRequestService.findAndInsertJobCrawling(crawlingContentsLastUrl,jobContentsProviderTypes);
         });
-    }),
-    NEWS("NEWS", Arrays.asList(ContentsProviderType.CODING_WORLD, ContentsProviderType.YOZM),(crawlingContentsLastUrl, hermesRequestService) -> {
+    }),*/
+    NEWS("NEWS", Arrays.asList(ContentsProviderType.YOZM),(crawlingContentsLastUrl, hermesRequestService) -> {
         List<ContentsProviderType> contentsProviderTypes = CategoryType.valueOf("NEWS").contentsProviderTypes;
         contentsProviderTypes.stream().forEach(newsContentsProviderTypes -> {
             hermesRequestService.finaAndInsertNewsCrawling(crawlingContentsLastUrl, newsContentsProviderTypes);
