@@ -29,85 +29,86 @@ public class RabbitConsumer {
         //hermesRequestService.insertYoutubeAndNews(CategoryType.NEWS, ContentsProviderType.CODING_WORLD, youtubeAndNewsCrawlingDto);
         return ResponseEntity.ok("success");
     }
-
+    */
     @RabbitListener(queues = "YOZMQueue")
-    public ResponseEntity<String> receiveYozmNewsMessage(final String message) {
+    public void receiveYozmNewsMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.NEWS, ContentsProviderType.YOZM, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
-    }*/
+        System.out.println(youtubeAndNewsCrawlingDto);
+    }
 
     @RabbitListener(queues = "NOMAD_CODERSQueue")
     public void receiveNomadCodersMessage(final String message) {
-        System.out.println(message);
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.NOMAD_CODERS, youtubeAndNewsCrawlingDto);
         System.out.println(youtubeAndNewsCrawlingDto);
     }
 
-    /*
     @RabbitListener(queues = "DREAM_CODINGQueue")
-    public ResponseEntity<String> receiveDreamCodingMessage(final String message) {
+    public void receiveDreamCodingMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.DREAM_CODING, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
+        System.out.println(youtubeAndNewsCrawlingDto);
     }
 
     @RabbitListener(queues = "WHITESHIPQueue")
-    public ResponseEntity<String> receiveWhiteShipMessage(final String message) {
+    public void receiveWhiteShipMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.WHITESHIP, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
+        System.out.println(youtubeAndNewsCrawlingDto);
     }
 
     @RabbitListener(queues = "FIQueue")
-    public ResponseEntity<String> receiveFiMessage(final String message) {
+    public void receiveFiMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.FI, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
+        System.out.println(youtubeAndNewsCrawlingDto);
     }
 
     @RabbitListener(queues = "LINE_DEVELOPQueue")
-    public ResponseEntity<String> receiveLineDevelopMessage(final String message) {
+    public void receiveLineDevelopMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.LINE_DEVELOP, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
+        System.out.println(message);
     }
 
     @RabbitListener(queues = "DEVELOP_FOOTQueue")
-    public ResponseEntity<String> receiveDevelopFootMessage(final String message) {
+    public void receiveDevelopFootMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.DEVELOP_FOOT, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
+        System.out.println(youtubeAndNewsCrawlingDto);
     }
 
     @RabbitListener(queues = "NULLNULL_DEVELOPQueue")
-    public ResponseEntity<String> receiveNullNullDevelopMessage(final String message) {
+    public void receiveNullNullDevelopMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.NULLNULL_DEVELOP, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
+        System.out.println(youtubeAndNewsCrawlingDto);
     }
 
     @RabbitListener(queues = "DONGBINNAQueue")
-    public ResponseEntity<String> receiveDongBinNaMessage(final String message) {
+    public void receiveDongBinNaMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.DONGBINNA, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
+        System.out.println(youtubeAndNewsCrawlingDto);
+       // return ResponseEntity.ok("success");
     }
 
     @RabbitListener(queues = "POPEQueue")
-    public ResponseEntity<String> receivePopeMessage(final String message) {
+    public void receivePopeMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.POPE, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
+        System.out.println(youtubeAndNewsCrawlingDto);
+        //return ResponseEntity.ok("success");
     }
 
     @RabbitListener(queues = "WOOWA_COURSEQueue")
-    public ResponseEntity<String> receiveWoowaCourseMessage(final String message) {
+    public void receiveWoowaCourseMessage(final String message) {
         YoutubeAndNewsCrawlingDto youtubeAndNewsCrawlingDto = parseYoutubeAndNewsCrawling(message);
         //hermesRequestService.insertYoutubeAndNews(CategoryType.YOUTUBE, ContentsProviderType.WOOWA_COURSE, youtubeAndNewsCrawlingDto);
-        return ResponseEntity.ok("success");
-    }*/
+        System.out.println(youtubeAndNewsCrawlingDto);
+        //return ResponseEntity.ok("success");
+    }
 
     /*
     @RabbitListener(queues = "SARAMINQueue")

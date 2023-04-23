@@ -27,11 +27,19 @@ public class DummyController {
     private final HermesRequestService hermesRequestService;
 
 
-    @RequestMapping(value = "/rabbitmq ", method = RequestMethod.GET)
+    @RequestMapping(value = "/rabbitmq", method = RequestMethod.GET)
     public ResponseEntity<String> findAndInsertDummySaramin() {
-        List<CrawlingContentsLastUrl> crawlingContentsLastTitle = hermesRequestService.findAllCrawlingContentsLastTitle();
-        List<CategoryType> categoryTypes = Arrays.stream(CategoryType.values()).toList();
-        categoryTypes.stream().forEach(categoryType -> CategoryType.findAndInsertCategoryFunctional(categoryType, crawlingContentsLastTitle, hermesRequestService));
+        crawlingClient.crawlingNews("YOZM","no data");
+        crawlingClient.crawlingYoutube("@dream-coding","DREAM_CODING","https://www.youtube.com/watch?v=1ZDjzJm3vPY");
+        crawlingClient.crawlingYoutube("@nomadcoders","NOMAD_CODERS","https://www.youtube.com/watch?v=4a_FVSWTRcg");
+        crawlingClient.crawlingYoutube("@keesun.b","WHITESHIP","https://www.youtube.com/watch?v=gW6v2PPGCRc");
+        crawlingClient.crawlingYoutube("@foorogrammer4072","FI","no data");
+        crawlingClient.crawlingYoutube("@devbadak","DEVELOP_FOOT","https://www.youtube.com/watch?v=Xb8LsgnTT8w");
+        crawlingClient.crawlingYoutube("@nullnull_not_eq_null","NULLNULL_DEVELOP","https://www.youtube.com/watch?v=O-WEJIXnrYs");
+        crawlingClient.crawlingYoutube("@dongbinna","DONGBINNA","https://www.youtube.com/watch?v=oFV00xfrQ9Y");
+        crawlingClient.crawlingYoutube("@PopeTV","POPE","no data");
+        crawlingClient.crawlingYoutube("@woowatech","WOOWA_COURSE","no data");
+
         return ResponseEntity.ok("success");
     }
 
