@@ -63,6 +63,7 @@ public class DummyController {
         return ResponseEntity.ok("success");
     }*/
 
+    /*
     @RequestMapping(value = "/yozm",method = RequestMethod.GET)
     public ResponseEntity<String> findAndInsertDummyYozm(){
         for(int page=1; page<=47; page++){
@@ -71,5 +72,5 @@ public class DummyController {
             hermesRequestService.insertYoutubeAndNews(CategoryType.NEWS,ContentsProviderType.YOZM,yozmCrawlingList);
         }
         return ResponseEntity.ok("success");
-    }
+    }*/
 }
