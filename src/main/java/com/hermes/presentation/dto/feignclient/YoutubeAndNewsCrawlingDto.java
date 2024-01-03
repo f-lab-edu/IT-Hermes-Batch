@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class YoutubeAndNewsCrawlingDto {
     private String title;
-    private String url;
     private String description;
     private String thumbnail;
+    private String url;
     private String date;
+    private String crawlingIndex;
 }

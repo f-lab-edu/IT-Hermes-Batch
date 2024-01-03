@@ -1,15 +1,17 @@
 package com.hermes.presentation.schedule;
 
 import com.hermes.application.AlarmRequestService;
-import com.hermes.presentation.dto.feignclient.CrawlingContentsLastUrl;
+import com.hermes.application.ElasticSearchRequestService;
+import com.hermes.domain.entity.CrawlingContentsLastUrl;
+import com.hermes.domain.util.CategoryType;
 import com.hermes.application.HermesRequestService;
-import com.hermes.domain.util.ContentsProviderType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -17,28 +19,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Scheduler {
     private final HermesRequestService hermesRequestService;
+    private final ElasticSearchRequestService elasticSearchRequestService;
     private final AlarmRequestService alarmRequestService;
 
-    @Scheduled(fixedDelay = 900000)
+    @Scheduled(fixedDelay = 1000 * 60 * 15)
     public void scheduleFixedRateTask() {
         log.info("15분에 한번 씩, 실행 -  {}", LocalDateTime.now());
+        List<CrawlingContentsLastUrl> crawlingContentsLastTitle = hermesRequestService.findAllCrawlingContentsLastTitle();
+        List<CategoryType> categoryTypes = Arrays.stream(CategoryType.values()).toList();
+        categoryTypes.stream().forEach(categoryType -> CategoryType.findAndInsertCategoryFunctional(categoryType, crawlingContentsLastTitle, hermesRequestService));
+    }
 
-        List<CrawlingContentsLastUrl> lastTitleList = hermesRequestService.findAllCrawlingContentsLastTitle().getBody().getCrawlingContentsLastUrlDtoList();
+    @Scheduled(fixedDelay = 1000 * 60 * 20)
+    public void scheduleUpdateContentsESTask(){
+        elasticSearchRequestService.updateElasticSearchContents();
+    }
 
-        hermesRequestService.finaAndInsertNewsCrawling(lastTitleList, ContentsProviderType.YOZM);
-        hermesRequestService.finaAndInsertNewsCrawling(lastTitleList,ContentsProviderType.CODING_WORLD);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.DREAM_CODING);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.NOMAD_CODERS);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.WHITESHIP);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.FI);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.LINE_DEVELOP);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.DEVELOP_FOOT);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.NULLNULL_DEVELOP);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.DONGBINNA);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.POPE);
-        hermesRequestService.finaAndInsertYoutubeCrawling(lastTitleList, ContentsProviderType.WOOWA_COURSE);
-        hermesRequestService.findAndInsertJobCrawling(lastTitleList, ContentsProviderType.SARAMIN);
-        hermesRequestService.findAndInsertJobCrawling(lastTitleList,ContentsProviderType.WANTED);
+    @Scheduled(fixedDelay = 1000 * 60 * 1)
+    public void scheduleUpdateSubscribeESTask(){
+        elasticSearchRequestService.updateElasticSearchSubscribe();
     }
 
     /*
@@ -51,5 +50,4 @@ public class Scheduler {
     public void scheduleRecommendAlarmTask(){
         alarmRequestService.getRecommendAlarm();
     }*/
-
 }

@@ -1,6 +1,6 @@
 package com.hermes.application;
 
-import com.hermes.presentation.dto.feignclient.CrawlingContentsLastUrl;
+import com.hermes.domain.entity.CrawlingContentsLastUrl;
 import com.hermes.presentation.dto.feignclient.JobCrawlingDto;
 import com.hermes.presentation.dto.feignclient.YoutubeAndNewsCrawlingDto;
 import com.hermes.presentation.client.CrawlingClient;
@@ -9,8 +9,6 @@ import com.hermes.domain.util.GradeType;
 import com.hermes.domain.util.JobType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +30,7 @@ public class NodeRequestService {
     public List<JobCrawlingDto> crawlingJob(ContentsProviderType contentsProviderType, JobType jobType
             , GradeType gradeType, List<CrawlingContentsLastUrl> lastTitleList) {
         String crawlingContentsLastUrl = findCrawlingContentsJobLastUrl(contentsProviderType, lastTitleList, jobType, gradeType);
-        return crawlingClient.crawlingJob(contentsProviderType.getRequestPath(), jobType.getTitle(), gradeType.getMinExperience(), gradeType.getMaxExperience(), crawlingContentsLastUrl);
+        return crawlingClient.crawlingJob(contentsProviderType.getRequestPath(), jobType.getTitle(), gradeType.getName(),gradeType.getMinExperience(), gradeType.getMaxExperience(), crawlingContentsLastUrl);
     }
 
     private String findCrawlingContentsYoutubeAndNewsLastUrl(ContentsProviderType contentsProviderType, List<CrawlingContentsLastUrl> lastTitleList) {

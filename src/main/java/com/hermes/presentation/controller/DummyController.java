@@ -32,7 +32,7 @@ public class DummyController {
             if (jobCrawlingList.size() == 0) break;
             Arrays.stream(JobType.values()).toList().stream().forEach(job -> {
                 Arrays.stream(GradeType.values()).toList().stream().forEach(grade -> {
-                    hermesRequestService.insertJob(grade, ContentsProviderType.SARAMIN, job, jobCrawlingList);
+                    hermesRequestService.insertJobList(ContentsProviderType.SARAMIN, jobCrawlingList);
                 });
             });
         }
@@ -46,7 +46,7 @@ public class DummyController {
             if(wantedCrawlingList.size() == 0) break;
             Arrays.stream(JobType.values()).toList().stream().forEach(job -> {
                 Arrays.stream(GradeType.values()).toList().stream().forEach(grade ->{
-                    hermesRequestService.insertJob(grade,ContentsProviderType.WANTED,job,wantedCrawlingList);
+                    hermesRequestService.insertJobList(ContentsProviderType.WANTED,wantedCrawlingList);
                 });
             });
         }
@@ -58,7 +58,7 @@ public class DummyController {
         for(int page=1; page<=47; page++){
             List<YoutubeAndNewsCrawlingDto> yozmCrawlingList = crawlingClient.crawlingDummyNews(ContentsProviderType.YOZM.getTitle(), String.valueOf(page));
             if(yozmCrawlingList.size() == 0) break;
-            hermesRequestService.insertYoutubeAndNews(CategoryType.NEWS,ContentsProviderType.YOZM,yozmCrawlingList);
+            hermesRequestService.insertYoutubeAndNewsList(CategoryType.NEWS,ContentsProviderType.YOZM,yozmCrawlingList);
         }
         return ResponseEntity.ok("success");
     }
